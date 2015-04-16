@@ -48,6 +48,10 @@ public class Parameter {
         return name;
     }
 
+    public Modifier getModifier() {
+        return modifier;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
