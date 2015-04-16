@@ -7,7 +7,7 @@ The goal of the project is to create natural, easy to use and self-documented Ja
 ## Usage
 Every class that represents a model of source file is a subclass of `SourceFile`.
 To create a physical file use `createSourceFile()` method.
-To create a string representation od file content invoke `toString()`.
+To create a string representation of file content invoke `toString()`.
 The generated source code almost always needs some kind of reformatting.
 
 The following examples **are not a complete overview** of available methods.
