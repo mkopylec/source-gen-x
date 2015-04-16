@@ -20,7 +20,7 @@ public class AnnotationElement extends Method {
 
     @Override
     public AnnotationElement addParameter(Parameter parameter) {
-        return (AnnotationElement) super.addParameter(parameter);
+        throw new IllegalStateException("Annotation element cannot have parameters");
     }
 
     @Override

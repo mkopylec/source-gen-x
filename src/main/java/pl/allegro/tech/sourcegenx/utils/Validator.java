@@ -1,7 +1,7 @@
 package pl.allegro.tech.sourcegenx.utils;
 
-import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException;
 import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException;
+import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException;
 
 import static org.apache.commons.lang3.ArrayUtils.contains;
 import static org.apache.commons.lang3.StringUtils.isBlank;
