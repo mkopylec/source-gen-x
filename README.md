@@ -111,7 +111,7 @@ Annotation retention = new Annotation("Retention")
         .addAttribute("value", "RUNTIME");
 
 AnnotationElement allowedRoles = new AnnotationElement("String[]", "allowedRoles")
-        .setDefaultValue("{ADMIN, CUSTOMER}");
+        .setDefaultValue("{\"ADMIN\", \"CUSTOMER\"}");
 
 JavaAnnotation secured = new JavaAnnotation("sourcegenx.demo", "Secured", userHome + "/demo/src/main/java/sourcegenx/demo")
         .addImport(new Import("java.lang.annotation.Retention"))
@@ -138,7 +138,7 @@ Output Secured.java:
     @Retention(value = RUNTIME)
     public @interface Secured {
 
-        String[] allowedRoles() default {ADMIN, CUSTOMER};
+        String[] allowedRoles() default {"ADMIN", "CUSTOMER"};
     }
 
 ## License
