@@ -2,11 +2,16 @@ package pl.allegro.tech.sourcegenx.core.java;
 
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
-import pl.allegro.tech.sourcegenx.core.SourceFileType;
-import pl.allegro.tech.sourcegenx.utils.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static pl.allegro.tech.sourcegenx.core.SourceFileType.JAVA_INTERFACE;
+import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
+import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC;
+import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
+import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
+import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
 public class JavaInterface extends SourceFile {
 
@@ -20,7 +25,7 @@ public class JavaInterface extends SourceFile {
     private final List<InterfaceMethod> methods = new ArrayList<>();
 
     public JavaInterface(String packageName, String interfaceName, String directory) {
-        this(interfaceName, packageName, interfaceName, directory, AccessModifier.PUBLIC);
+        this(interfaceName, packageName, interfaceName, directory, PUBLIC);
     }
 
     public JavaInterface(String packageName, String interfaceName, String directory, AccessModifier accessModifier) {
@@ -28,15 +33,15 @@ public class JavaInterface extends SourceFile {
     }
 
     public JavaInterface(String fileName, String packageName, String interfaceName, String directory) {
-        this(fileName, packageName, interfaceName, directory, AccessModifier.PUBLIC);
+        this(fileName, packageName, interfaceName, directory, PUBLIC);
     }
 
     public JavaInterface(String fileName, String packageName, String interfaceName, String directory, AccessModifier accessModifier) {
-        super(fileName, directory, SourceFileType.JAVA_INTERFACE);
-        Validator.failIfBlank(packageName, "Empty Java interface package name");
-        Validator.failIfBlank(interfaceName, "Empty Java interface name");
-        Validator.failIfNull(accessModifier, "Empty Java interface access modifier");
-        Validator.failIfNotOneOf(accessModifier, "Invalid Java interface access modifier: " + accessModifier, AccessModifier.PUBLIC, AccessModifier.PACKAGE_PRIVATE);
+        super(fileName, directory, JAVA_INTERFACE);
+        failIfBlank(packageName, "Empty Java interface package name");
+        failIfBlank(interfaceName, "Empty Java interface name");
+        failIfNull(accessModifier, "Empty Java interface access modifier");
+        failIfNotOneOf(accessModifier, "Invalid Java interface access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
         this.packageName = packageName;
         this.accessModifier = accessModifier;
         this.interfaceName = interfaceName;
@@ -51,7 +56,7 @@ public class JavaInterface extends SourceFile {
     }
 
     public JavaInterface addImport(Import imp) {
-        Validator.failIfNull(imp, "Empty Java interface import");
+        failIfNull(imp, "Empty Java interface import");
         imports.add(imp);
         return this;
     }
@@ -61,7 +66,7 @@ public class JavaInterface extends SourceFile {
     }
 
     public JavaInterface addAnnotation(Annotation annotation) {
-        Validator.failIfNull(annotation, "Empty Java interface annotation");
+        failIfNull(annotation, "Empty Java interface annotation");
         annotations.add(annotation);
         return this;
     }
@@ -79,7 +84,7 @@ public class JavaInterface extends SourceFile {
     }
 
     public JavaInterface addSuperInterface(String superInterface) {
-        Validator.failIfBlank(superInterface, "Empty super interface name");
+        failIfBlank(superInterface, "Empty super interface name");
         superInterfaces.add(superInterface);
         return this;
     }
@@ -89,7 +94,7 @@ public class JavaInterface extends SourceFile {
     }
 
     public JavaInterface addConstant(InterfaceConstant constant) {
-        Validator.failIfNull(constant, "Empty interface constant");
+        failIfNull(constant, "Empty interface constant");
         constants.add(constant);
         return this;
     }
@@ -99,7 +104,7 @@ public class JavaInterface extends SourceFile {
     }
 
     public JavaInterface addMethod(InterfaceMethod method) {
-        Validator.failIfNull(method, "Empty Java interface method");
+        failIfNull(method, "Empty Java interface method");
         methods.add(method);
         return this;
     }

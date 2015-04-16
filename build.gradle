@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
@@ -16,6 +17,8 @@ dependencies {
 
     compile group: 'org.antlr', name: 'stringtemplate', version: '+'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '+'
+
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '+'
 }
 
 task javadocJar(type: Jar) {

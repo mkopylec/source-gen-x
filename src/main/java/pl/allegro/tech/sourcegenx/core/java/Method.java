@@ -1,11 +1,13 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
-import pl.allegro.tech.sourcegenx.utils.Validator;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.join;
+import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC;
+import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
+import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
+import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
 public class Method {
 
@@ -18,14 +20,14 @@ public class Method {
     private String body;
 
     public Method(String returnType, String name) {
-        this(AccessModifier.PUBLIC, Modifier.NONE, returnType, name);
+        this(PUBLIC, NONE, returnType, name);
     }
 
     public Method(AccessModifier accessModifier, Modifier modifier, String returnType, String name) {
-        Validator.failIfNull(accessModifier, "Empty method access modifier");
-        Validator.failIfNull(modifier, "Empty method modifier");
-        Validator.failIfNull(returnType, "Empty method return type");
-        Validator.failIfBlank(name, "Empty method name");
+        failIfNull(accessModifier, "Empty method access modifier");
+        failIfNull(modifier, "Empty method modifier");
+        failIfNull(returnType, "Empty method return type");
+        failIfBlank(name, "Empty method name");
         this.accessModifier = accessModifier;
         this.modifier = modifier;
         this.returnType = returnType;
@@ -37,7 +39,7 @@ public class Method {
     }
 
     public Method addAnnotation(Annotation annotation) {
-        Validator.failIfNull(annotation, "Empty method annotation");
+        failIfNull(annotation, "Empty method annotation");
         annotations.add(annotation);
         return this;
     }
@@ -63,7 +65,7 @@ public class Method {
     }
 
     public Method addParameter(Parameter parameter) {
-        Validator.failIfNull(parameter, "Empty method parameter");
+        failIfNull(parameter, "Empty method parameter");
         parameters.add(parameter);
         return this;
     }
@@ -73,7 +75,7 @@ public class Method {
     }
 
     public Method setBody(String body) {
-        Validator.failIfBlank(body, "Empty method body");
+        failIfBlank(body, "Empty method body");
         this.body = body;
         return this;
     }

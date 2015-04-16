@@ -2,11 +2,11 @@ package pl.allegro.tech.sourcegenx.core.java;
 
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
-import pl.allegro.tech.sourcegenx.core.SourceFileType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.allegro.tech.sourcegenx.core.SourceFileType.JAVA_ENUM;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
@@ -39,7 +39,7 @@ public class JavaEnum extends SourceFile {
     }
 
     public JavaEnum(String fileName, String packageName, String enumName, String directory, AccessModifier accessModifier) {
-        super(fileName, directory, SourceFileType.JAVA_ENUM);
+        super(fileName, directory, JAVA_ENUM);
         failIfBlank(packageName, "Empty Java enum package name");
         failIfBlank(enumName, "Empty Java enum name");
         failIfNull(accessModifier, "Empty Java enum access modifier");

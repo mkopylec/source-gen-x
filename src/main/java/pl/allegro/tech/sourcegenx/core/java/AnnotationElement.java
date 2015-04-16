@@ -2,6 +2,7 @@ package pl.allegro.tech.sourcegenx.core.java;
 
 import static org.apache.commons.lang3.StringUtils.join;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
+import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfOneOf;
 
@@ -10,7 +11,7 @@ public class AnnotationElement extends Method {
     private String defaultValue;
 
     public AnnotationElement(String type, String name) {
-        super(PACKAGE_PRIVATE, Modifier.NONE, type, name);
+        super(PACKAGE_PRIVATE, NONE, type, name);
         failIfOneOf(type, "Invalid annotation element type: " + type, "void");
     }
 

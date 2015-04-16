@@ -1,24 +1,24 @@
 package pl.allegro.tech.sourcegenx;
 
+import pl.allegro.tech.sourcegenx.core.java.AbstractMethod;
 import pl.allegro.tech.sourcegenx.core.java.AccessModifier;
 import pl.allegro.tech.sourcegenx.core.java.Annotation;
 import pl.allegro.tech.sourcegenx.core.java.AnnotationElement;
+import pl.allegro.tech.sourcegenx.core.java.Constant;
+import pl.allegro.tech.sourcegenx.core.java.Constructor;
 import pl.allegro.tech.sourcegenx.core.java.EnumConstructor;
 import pl.allegro.tech.sourcegenx.core.java.EnumValue;
 import pl.allegro.tech.sourcegenx.core.java.Field;
 import pl.allegro.tech.sourcegenx.core.java.Import;
+import pl.allegro.tech.sourcegenx.core.java.InterfaceConstant;
 import pl.allegro.tech.sourcegenx.core.java.InterfaceMethod;
+import pl.allegro.tech.sourcegenx.core.java.JavaAnnotation;
 import pl.allegro.tech.sourcegenx.core.java.JavaClass;
 import pl.allegro.tech.sourcegenx.core.java.JavaEnum;
-import pl.allegro.tech.sourcegenx.core.java.Modifier;
-import pl.allegro.tech.sourcegenx.core.java.Parameter;
-import pl.allegro.tech.sourcegenx.core.java.AbstractMethod;
-import pl.allegro.tech.sourcegenx.core.java.Constant;
-import pl.allegro.tech.sourcegenx.core.java.Constructor;
-import pl.allegro.tech.sourcegenx.core.java.InterfaceConstant;
-import pl.allegro.tech.sourcegenx.core.java.JavaAnnotation;
 import pl.allegro.tech.sourcegenx.core.java.JavaInterface;
 import pl.allegro.tech.sourcegenx.core.java.Method;
+import pl.allegro.tech.sourcegenx.core.java.Modifier;
+import pl.allegro.tech.sourcegenx.core.java.Parameter;
 
 import java.io.IOException;
 

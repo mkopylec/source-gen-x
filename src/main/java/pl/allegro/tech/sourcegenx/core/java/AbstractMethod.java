@@ -1,18 +1,21 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
-import pl.allegro.tech.sourcegenx.utils.Validator;
-
 import static org.apache.commons.lang3.StringUtils.join;
+import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
+import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PROTECTED;
+import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC;
+import static pl.allegro.tech.sourcegenx.core.java.Modifier.ABSTRACT;
+import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 
 public class AbstractMethod extends Method {
 
     public AbstractMethod(String returnType, String name) {
-        this(AccessModifier.PROTECTED, returnType, name);
+        this(PROTECTED, returnType, name);
     }
 
     public AbstractMethod(AccessModifier accessModifier, String returnType, String name) {
-        super(accessModifier, Modifier.ABSTRACT, returnType, name);
-        Validator.failIfNotOneOf(accessModifier, "Invalid abstract method access modifier: " + accessModifier, AccessModifier.PACKAGE_PRIVATE, AccessModifier.PROTECTED, AccessModifier.PUBLIC);
+        super(accessModifier, ABSTRACT, returnType, name);
+        failIfNotOneOf(accessModifier, "Invalid abstract method access modifier: " + accessModifier, PACKAGE_PRIVATE, PROTECTED, PUBLIC);
     }
 
     @Override
