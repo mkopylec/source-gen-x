@@ -16,17 +16,19 @@ They are just a simple demonstration of how to use the Source Gen-X tool.
 ### Generating a Java class
 Creating a sample main class:
     
-    Constant constant = new Constant("String", "GREETING", "\"Hello World!\"");
+```java
+Constant constant = new Constant("String", "GREETING", "\"Hello World!\"");
 
-    Method main = new Method(AccessModifier.PUBLIC, Modifier.STATIC, "void", "main")
-            .addParameter(new Parameter("String[]", "args"))
-            .setBody("\tSystem.out.println(GREETING);");
+Method main = new Method(AccessModifier.PUBLIC, Modifier.STATIC, "void", "main")
+        .addParameter(new Parameter("String[]", "args"))
+        .setBody("\tSystem.out.println(GREETING);");
 
-    JavaClass mainClass = new JavaClass("sourcegenx.demo", "Application", userHome + "/demo/src/main/java/sourcegenx/demo")
-            .addField(constant)
-            .addMethod(main);
+JavaClass mainClass = new JavaClass("sourcegenx.demo", "Application", userHome + "/demo/src/main/java/sourcegenx/demo")
+        .addField(constant)
+        .addMethod(main);
 
-    mainClass.createSourceFile();
+mainClass.createSourceFile();
+```
     
 Output Application.java:
 
