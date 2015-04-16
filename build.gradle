@@ -1,7 +1,12 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.8
-version = '1.0'
+
+group = "pl.allegro.tech"
+archivesBaseName = name
+version = "0.0.1"
 
 repositories {
     mavenCentral()
@@ -11,4 +16,67 @@ dependencies {
 
     compile group: 'org.antlr', name: 'stringtemplate', version: '+'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '+'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+ext {
+    ossrhUsername = project.ext.has('ossrhUsername') ? project.ext.ossrhUsername : ''
+    ossrhPassword = project.ext.has('ossrhPassword') ? project.ext.ossrhPassword : ''
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Source Gen-X'
+                packaging 'jar'
+                description 'A source code and files generator with an intuitive API'
+                url 'https://github.com/mkopylec/source-gen-x'
+
+                scm {
+                    connection 'scm:git:https://github.com/mkopylec/source-gen-x.git'
+                    developerConnection 'scm:git:https://github.com/mkopylec/source-gen-x.git'
+                    url 'https://github.com/mkopylec/source-gen-x'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'mkopylec'
+                        name 'Mariusz Kopylec'
+                        email 'maniek8888@o2.pl'
+                    }
+                }
+            }
+        }
+    }
 }
