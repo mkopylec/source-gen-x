@@ -100,8 +100,8 @@ public class Method {
             builder.append(annotation).append("\n");
         }
         return removeRedundantSpaces(builder.toString() +
-                accessModifier + " " + modifier + " " + returnType + " " + name + "(" + join(parameters, ", ") + ") " + (thrownExceptions.isEmpty() ? "" : ("throws " + join(thrownExceptions, ", ") + " ")) + "{\n"
+                accessModifier + " " + modifier + " " + returnType + " " + name + "(" + join(parameters, ", ") + ") " + (thrownExceptions.isEmpty() ? "" : ("throws " + join(thrownExceptions, ", ") + " "))) + " {\n"
                 + (body == null ? "" : (body + "\n"))
-                + "}");
+                + "}";
     }
 }

@@ -133,7 +133,7 @@ public class JavaClass extends SourceFile {
 
     public <J extends JavaClass> J addMethod(Method method) {
         failIfNull(method, "Empty Java class method");
-        failIfInstanceOf(method, "Invalid Java class method type: " + method.getClass().getSimpleName(), InterfaceMethod.class);
+        failIfInstanceOf(method, "Invalid Java class method type: " + method.getClass().getSimpleName(), InterfaceMethod.class, EnumConstructor.class);
         methods.add(method);
         return (J) this;
     }

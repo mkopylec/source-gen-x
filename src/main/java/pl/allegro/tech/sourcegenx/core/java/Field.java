@@ -1,7 +1,5 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
-import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +77,6 @@ public class Field {
 
     @Override
     public String toString() {
-        checkFinalValue();
         StringBuilder builder = new StringBuilder();
         for (Annotation annotation : annotations) {
             builder.append(annotation).append("\n");
@@ -89,11 +86,5 @@ public class Field {
             s += " = " + value;
         }
         return removeRedundantSpaces(s + ";");
-    }
-
-    private void checkFinalValue() {
-        if ((modifier == FINAL || modifier == STATIC_FINAL) && value == null) {
-            throw new IllegalOperationException("Final field: " + name + ", does not have initial value");
-        }
     }
 }

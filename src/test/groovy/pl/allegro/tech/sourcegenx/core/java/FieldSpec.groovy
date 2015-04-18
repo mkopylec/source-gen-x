@@ -1,7 +1,6 @@
 package pl.allegro.tech.sourcegenx.core.java
 
 import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException
-import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException
 import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -13,10 +12,8 @@ import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PROTECTED
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.ABSTRACT
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.DEFAULT
-import static pl.allegro.tech.sourcegenx.core.java.Modifier.FINAL
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC
-import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC_FINAL
 
 class FieldSpec extends Specification {
 
@@ -132,20 +129,5 @@ class FieldSpec extends Specification {
 
         where:
         value << emptyValues()
-    }
-
-    @Unroll
-    def "Should fail to create #modifier field without initial value"() {
-        given:
-        def field = new Field(PRIVATE, modifier, 'String', 'message')
-
-        when:
-        field.toString()
-
-        then:
-        thrown IllegalOperationException
-
-        where:
-        modifier << [FINAL, STATIC_FINAL]
     }
 }
