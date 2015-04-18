@@ -1,4 +1,6 @@
 # Source Gen-X
+[![Build Status](https://travis-ci.org/mkopylec/source-gen-x.svg?branch=master)](https://travis-ci.org/mkopylec/source-gen-x)
+
 Source code and files generator with an intuitive API written in Java.
 With this tool you can create your sources with a minimal learning curve. 
 
