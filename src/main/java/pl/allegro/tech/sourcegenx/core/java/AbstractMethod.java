@@ -1,5 +1,7 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
+
 import static org.apache.commons.lang3.StringUtils.join;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PROTECTED;
@@ -21,7 +23,7 @@ public class AbstractMethod extends Method {
 
     @Override
     public Method setBody(String body) {
-        throw new IllegalStateException("Abstract method cannot have body");
+        throw new IllegalOperationException("Abstract method cannot have body");
     }
 
     @Override

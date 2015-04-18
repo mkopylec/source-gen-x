@@ -1,6 +1,7 @@
 package pl.allegro.tech.sourcegenx.core.java
 
 import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException
 import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException
 import spock.lang.Specification
 
@@ -47,7 +48,7 @@ class AnnotationElementSpec extends Specification {
         element.addParameter(new Parameter('int', 'number'))
 
         then:
-        thrown IllegalStateException
+        thrown IllegalOperationException
     }
 
     def "Should fail to set annotation element body"() {
@@ -58,7 +59,7 @@ class AnnotationElementSpec extends Specification {
         element.setBody('\treturn "I am message";')
 
         then:
-        thrown IllegalStateException
+        thrown IllegalOperationException
     }
 
     def "Should fail to set '#defaultValue' annotation element default value"() {

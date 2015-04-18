@@ -1,6 +1,7 @@
 package pl.allegro.tech.sourcegenx.core.java
 
 import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException
 import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -142,7 +143,7 @@ class FieldSpec extends Specification {
         field.toString()
 
         then:
-        thrown IllegalStateException
+        thrown IllegalOperationException
 
         where:
         modifier << [FINAL, STATIC_FINAL]

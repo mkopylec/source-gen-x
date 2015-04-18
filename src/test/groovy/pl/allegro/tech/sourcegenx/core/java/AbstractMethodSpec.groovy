@@ -1,5 +1,6 @@
 package pl.allegro.tech.sourcegenx.core.java
 
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException
 import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -45,6 +46,6 @@ class AbstractMethodSpec extends Specification {
         method.setBody('\treturn "I am message";')
 
         then:
-        thrown IllegalStateException
+        thrown IllegalOperationException
     }
 }

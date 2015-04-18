@@ -1,5 +1,7 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
+
 import static org.apache.commons.lang3.StringUtils.join;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.DEFAULT;
@@ -27,7 +29,7 @@ public class InterfaceMethod extends Method {
     @Override
     public InterfaceMethod setBody(String body) {
         if (getModifier() == NONE) {
-            throw new IllegalStateException("Interface method with no modifier cannot have body");
+            throw new IllegalOperationException("Interface method with no modifier cannot have body");
         }
         return (InterfaceMethod) super.setBody(body);
     }

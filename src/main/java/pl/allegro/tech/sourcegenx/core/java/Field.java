@@ -1,5 +1,7 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +92,7 @@ public class Field {
 
     private void checkFinalValue() {
         if ((modifier == FINAL || modifier == STATIC_FINAL) && value == null) {
-            throw new IllegalStateException("Final field: " + name + ", does not have initial value");
+            throw new IllegalOperationException("Final field: " + name + ", does not have initial value");
         }
     }
 }

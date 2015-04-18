@@ -38,6 +38,10 @@ public class JavaClass extends SourceFile {
         this(className, packageName, className, directory, accessModifier, NONE);
     }
 
+    public JavaClass(String packageName, String className, String directory, Modifier modifier) {
+        this(className, packageName, className, directory, PUBLIC, modifier);
+    }
+
     public JavaClass(String fileName, String packageName, String className, String directory) {
         this(fileName, packageName, className, directory, PUBLIC, NONE);
     }

@@ -1,5 +1,7 @@
 package pl.allegro.tech.sourcegenx.core.java;
 
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
+
 import static org.apache.commons.lang3.StringUtils.join;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
@@ -22,12 +24,12 @@ public class AnnotationElement extends Method {
 
     @Override
     public AnnotationElement addParameter(Parameter parameter) {
-        throw new IllegalStateException("Annotation element cannot have parameters");
+        throw new IllegalOperationException("Annotation element cannot have parameters");
     }
 
     @Override
     public AnnotationElement setBody(String body) {
-        throw new IllegalStateException("Annotation element cannot have body");
+        throw new IllegalOperationException("Annotation element cannot have body");
     }
 
     public String getDefaultValue() {
