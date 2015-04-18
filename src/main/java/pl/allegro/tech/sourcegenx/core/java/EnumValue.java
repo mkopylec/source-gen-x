@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.join;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 
 public class EnumValue {
@@ -35,6 +36,6 @@ public class EnumValue {
         if (arguments.isEmpty()) {
             return name;
         }
-        return name + "(" + join(arguments, ", ") + ")";
+        return removeRedundantSpaces(name + "(" + join(arguments, ", ") + ")");
     }
 }

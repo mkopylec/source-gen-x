@@ -35,11 +35,11 @@ Output Application.java:
     package sourcegenx.demo;
 
 
-    public  class Application   {
+    public class Application   {
 
         public static final String GREETING = "Hello World!";
 
-        public static void main( String[] args) {
+        public static void main(String[] args) {
     	    System.out.println(GREETING);
         }
     }
@@ -64,12 +64,12 @@ Output UserDao.java:
 
     package sourcegenx.demo;
 
-    import  sourcegenx.demo.entities.User;
+    import sourcegenx.demo.entities.User;
 
     public interface UserDao<User>  {
 
 
-         User findById( long id);
+         User findById(long id);
     }
 
 ### Generating a Java enum
@@ -129,13 +129,13 @@ Output Secured.java:
 
     package sourcegenx.demo;
 
-    import  java.lang.annotation.Retention;
-    import  java.lang.annotation.Target;
+    import java.lang.annotation.Retention;
+    import java.lang.annotation.Target;
     import static java.lang.annotation.ElementType.METHOD;
     import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-    @Target(value = METHOD)
-    @Retention(value = RUNTIME)
+    @Target(METHOD)
+    @Retention(RUNTIME)
     public @interface Secured {
 
         String[] allowedRoles() default {"ADMIN", "CUSTOMER"};

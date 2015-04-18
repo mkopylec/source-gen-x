@@ -6,6 +6,7 @@ import java.util.List;
 import static org.apache.commons.lang3.StringUtils.join;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
@@ -86,9 +87,9 @@ public class Method {
         for (Annotation annotation : annotations) {
             builder.append(annotation).append("\n");
         }
-        return builder.toString() +
+        return removeRedundantSpaces(builder.toString() +
                 accessModifier + " " + modifier + " " + returnType + " " + name + "(" + join(parameters, ", ") + ") {\n"
-                + (body == null ? "" : body)
-                + "\n}";
+                + (body == null ? "" : (body + "\n"))
+                + "}");
     }
 }

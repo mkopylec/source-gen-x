@@ -5,6 +5,7 @@ import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVAT
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.DEFAULT;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 
 public class InterfaceMethod extends Method {
@@ -33,9 +34,9 @@ public class InterfaceMethod extends Method {
 
     @Override
     public String toString() {
-        if (getBody() != null) {
+        if (getBody() != null || getModifier() != NONE) {
             return super.toString();
         }
-        return getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ");";
+        return removeRedundantSpaces(getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ");");
     }
 }

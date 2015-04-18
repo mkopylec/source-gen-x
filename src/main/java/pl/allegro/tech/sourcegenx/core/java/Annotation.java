@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.removeEnd;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 
 public class Annotation {
@@ -41,9 +42,13 @@ public class Annotation {
             return "@" + name;
         }
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry attribute : attributes.entrySet()) {
-            builder.append(attribute.getKey()).append(" = ").append(attribute.getValue()).append(", ");
+        if (attributes.size() == 1 && attributes.containsKey("value")) {
+            builder.append(attributes.get("value"));
+        } else {
+            for (Map.Entry attribute : attributes.entrySet()) {
+                builder.append(attribute.getKey()).append(" = ").append(attribute.getValue()).append(", ");
+            }
         }
-        return "@" + name + "(" + removeEnd(builder.toString(), ", ") + ")";
+        return removeRedundantSpaces("@" + name + "(" + removeEnd(builder.toString(), ", ") + ")");
     }
 }

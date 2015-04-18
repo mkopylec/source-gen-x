@@ -5,6 +5,7 @@ import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static pl.allegro.tech.sourcegenx.CommonUtils.emptyValues
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.ABSTRACT
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.DEFAULT
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.FINAL
@@ -12,9 +13,7 @@ import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC_FINAL
 
-class ParameterTest extends Specification {
-
-    private static final def EMPTY_VALUES = [null, '', ' ', '  ']
+class ParameterSpec extends Specification {
 
     @Unroll
     def "Should create a #modifier method parameter"() {
@@ -25,10 +24,12 @@ class ParameterTest extends Specification {
         def string = parameter.toString()
 
         then:
-        "$string" == "$modifier String message"
+        string == result
 
         where:
-        modifier << [NONE, FINAL]
+        modifier | result
+        NONE     | 'String message'
+        FINAL    | 'final String message'
     }
 
     @Unroll
@@ -42,10 +43,12 @@ class ParameterTest extends Specification {
         def string = parameter.toString()
 
         then:
-        "$string" == "@NotNull @NotEmpty $modifier String message"
+        string == result
 
         where:
-        modifier << [NONE, FINAL]
+        modifier | result
+        NONE     | '@NotNull @NotEmpty String message'
+        FINAL    | '@NotNull @NotEmpty final String message'
     }
 
     @Unroll
@@ -57,7 +60,7 @@ class ParameterTest extends Specification {
         thrown EmptyValueException
 
         where:
-        type << EMPTY_VALUES
+        type << emptyValues()
     }
 
     @Unroll
@@ -69,7 +72,7 @@ class ParameterTest extends Specification {
         thrown EmptyValueException
 
         where:
-        name << EMPTY_VALUES
+        name << emptyValues()
     }
 
     def "Should fail to create method parameter when modifier is empty"() {

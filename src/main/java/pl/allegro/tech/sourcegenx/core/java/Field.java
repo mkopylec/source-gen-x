@@ -8,6 +8,7 @@ import static pl.allegro.tech.sourcegenx.core.java.Modifier.FINAL;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC_FINAL;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
@@ -84,11 +85,11 @@ public class Field {
         if (value != null) {
             s += " = " + value;
         }
-        return s + ";";
+        return removeRedundantSpaces(s + ";");
     }
 
     private void checkFinalValue() {
-        if (modifier == FINAL && value == null) {
+        if ((modifier == FINAL || modifier == STATIC_FINAL) && value == null) {
             throw new IllegalStateException("Final field: " + name + ", does not have initial value");
         }
     }

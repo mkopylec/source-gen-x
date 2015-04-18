@@ -5,6 +5,7 @@ import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVAT
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PROTECTED;
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.ABSTRACT;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 
 public class AbstractMethod extends Method {
@@ -25,6 +26,6 @@ public class AbstractMethod extends Method {
 
     @Override
     public String toString() {
-        return getAccessModifier() + " " + getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ");";
+        return removeRedundantSpaces(getAccessModifier() + " " + getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ");");
     }
 }

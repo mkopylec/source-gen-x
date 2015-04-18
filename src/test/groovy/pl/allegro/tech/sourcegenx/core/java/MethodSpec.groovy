@@ -4,6 +4,7 @@ import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import static pl.allegro.tech.sourcegenx.CommonUtils.emptyValues
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PRIVATE
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PROTECTED
@@ -14,9 +15,7 @@ import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC_FINAL
 
-class MethodTest extends Specification {
-
-    private static final def EMPTY_VALUES = [null, '', ' ', '  ']
+class MethodSpec extends Specification {
 
     @Unroll
     def "Should create empty #accessModifier #modifier method"() {
@@ -27,15 +26,15 @@ class MethodTest extends Specification {
         def string = method.toString()
 
         then:
-        "$string" == "$accessModifier $modifier String getMessage() {\n\n}"
+        string == result
 
         where:
-        accessModifier  | modifier
-        PUBLIC          | ABSTRACT
-        PROTECTED       | STATIC
-        PACKAGE_PRIVATE | STATIC_FINAL
-        PRIVATE         | NONE
-        PRIVATE         | FINAL
+        accessModifier  | modifier     | result
+        PUBLIC          | ABSTRACT     | 'public abstract String getMessage() {\n}'
+        PROTECTED       | STATIC       | 'protected static String getMessage() {\n}'
+        PACKAGE_PRIVATE | STATIC_FINAL | 'static final String getMessage() {\n}'
+        PRIVATE         | NONE         | 'private String getMessage() {\n}'
+        PRIVATE         | FINAL        | 'private final String getMessage() {\n}'
     }
 
     def "Should create non empty, annotated method with parameters"() {
@@ -54,7 +53,7 @@ class MethodTest extends Specification {
         string ==
                 '@Deprecated\n' +
                 '@Override\n' +
-                'public  String getMessage( int age,  boolean valid) {\n' +
+                'public String getMessage(int age, boolean valid) {\n' +
                 '\treturn "I am message";\n' +
                 '}'
     }
@@ -92,7 +91,7 @@ class MethodTest extends Specification {
         thrown EmptyValueException
 
         where:
-        name << EMPTY_VALUES
+        name << emptyValues()
     }
 
     def "Should fail to add empty annotation to method"() {
@@ -129,6 +128,6 @@ class MethodTest extends Specification {
         thrown EmptyValueException
 
         where:
-        body << EMPTY_VALUES
+        body << emptyValues()
     }
 }

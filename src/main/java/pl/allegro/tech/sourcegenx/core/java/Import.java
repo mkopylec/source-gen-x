@@ -3,6 +3,7 @@ package pl.allegro.tech.sourcegenx.core.java;
 import static org.apache.commons.lang3.StringUtils.endsWith;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
@@ -34,7 +35,7 @@ public class Import {
 
     @Override
     public String toString() {
-        return "import " + modifier + " " + content;
+        return removeRedundantSpaces("import " + modifier + " " + content);
     }
 
     private String correctContent(String content) {

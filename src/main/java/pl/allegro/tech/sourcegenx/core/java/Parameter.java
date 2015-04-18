@@ -5,6 +5,7 @@ import java.util.List;
 
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.FINAL;
 import static pl.allegro.tech.sourcegenx.core.java.Modifier.NONE;
+import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
@@ -58,6 +59,6 @@ public class Parameter {
         for (Annotation annotation : annotations) {
             builder.append(annotation).append(" ");
         }
-        return builder.toString() + modifier + " " + type + " " + name;
+        return removeRedundantSpaces(builder.toString() + modifier + " " + type + " " + name);
     }
 }
