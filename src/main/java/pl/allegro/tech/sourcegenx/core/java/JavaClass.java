@@ -17,6 +17,7 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfInstanceOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class JavaClass extends SourceFile {
 
     private final String packageName;
@@ -68,20 +69,20 @@ public class JavaClass extends SourceFile {
         return imports;
     }
 
-    public JavaClass addImport(Import imp) {
+    public <J extends JavaClass> J addImport(Import imp) {
         failIfNull(imp, "Empty Java class import");
         imports.add(imp);
-        return this;
+        return (J) this;
     }
 
     public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-    public JavaClass addAnnotation(Annotation annotation) {
+    public <J extends JavaClass> J addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty Java class annotation");
         annotations.add(annotation);
-        return this;
+        return (J) this;
     }
 
     public AccessModifier getAccessModifier() {
@@ -100,41 +101,41 @@ public class JavaClass extends SourceFile {
         return superClass;
     }
 
-    public JavaClass setSuperClass(String superClass) {
+    public <J extends JavaClass> J setSuperClass(String superClass) {
         failIfBlank(superClass, "Empty super class name");
         this.superClass = superClass;
-        return this;
+        return (J) this;
     }
 
     public List<String> getImplementedInterfaces() {
         return implementedInterfaces;
     }
 
-    public JavaClass addImplementedInterface(String implementedInterface) {
+    public <J extends JavaClass> J addImplementedInterface(String implementedInterface) {
         failIfBlank(implementedInterface, "Empty implemented interface name");
         implementedInterfaces.add(implementedInterface);
-        return this;
+        return (J) this;
     }
 
     public List<Field> getFields() {
         return fields;
     }
 
-    public JavaClass addField(Field field) {
+    public <J extends JavaClass> J addField(Field field) {
         failIfNull(field, "Empty Java class field");
         fields.add(field);
-        return this;
+        return (J) this;
     }
 
     public List<Method> getMethods() {
         return methods;
     }
 
-    public JavaClass addMethod(Method method) {
+    public <J extends JavaClass> J addMethod(Method method) {
         failIfNull(method, "Empty Java class method");
         failIfInstanceOf(method, "Invalid Java class method type: " + method.getClass().getSimpleName(), InterfaceMethod.class);
         methods.add(method);
-        return this;
+        return (J) this;
     }
 
     @Override

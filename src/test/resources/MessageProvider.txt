@@ -1,0 +1,31 @@
+package pl.allegro.tech.sourcegenx.core;
+
+import java.io.Serializable;
+import pl.allegro.tech.Logged;
+import pl.allegro.tech.NotNull;
+import static pl.allegro.tech.LogLevel.INFO;
+import static pl.allegro.tech.LogLevel.ERROR;
+
+@SuppressWarnings("unchecked")
+public abstract class MessageProvider extends Object implements Serializable, Provider {
+
+    public static final int MAX_MESSAGE_LENGTH = 64;
+
+    @Deprecated
+    private final String message;
+
+    @Logged(level = INFO)
+    public MessageProvider(@NotNull final String message) {
+        this.message = message;
+    }
+
+    @Logged(level = ERROR)
+    public final String concatToMessage(@NotNull final String text) throws Exception {
+        if (message.length() < MAX_MESSAGE_LENGTH) {
+            return message + text;
+        }
+        throw new Exception("Invalid message length");
+    }
+
+    protected abstract void print();
+}

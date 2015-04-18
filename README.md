@@ -12,7 +12,7 @@ To create a physical file use `createSourceFile()` method.
 To create a string representation of file content invoke `toString()`.
 The generated source code almost always needs some kind of reformatting.
 
-The following examples **are not a complete overview** of available methods.
+The following examples are **not a complete overview** of available methods.
 They are just a simple demonstration of how to use the Source Gen-X tool.
 
 ### Generating a Java class

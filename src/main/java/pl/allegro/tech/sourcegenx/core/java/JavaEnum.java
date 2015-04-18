@@ -14,6 +14,7 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfInstanceOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class JavaEnum extends SourceFile {
 
     private final String packageName;
@@ -57,20 +58,20 @@ public class JavaEnum extends SourceFile {
         return imports;
     }
 
-    public JavaEnum addImport(Import imp) {
+    public <J extends JavaEnum> J addImport(Import imp) {
         failIfNull(imp, "Empty Java enum import");
         imports.add(imp);
-        return this;
+        return (J) this;
     }
 
     public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-    public JavaEnum addAnnotation(Annotation annotation) {
+    public <J extends JavaEnum> J addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty Java enum annotation");
         annotations.add(annotation);
-        return this;
+        return (J) this;
     }
 
     public AccessModifier getAccessModifier() {
@@ -85,41 +86,41 @@ public class JavaEnum extends SourceFile {
         return implementedInterfaces;
     }
 
-    public JavaEnum addImplementedInterface(String implementedInterface) {
+    public <J extends JavaEnum> J addImplementedInterface(String implementedInterface) {
         failIfBlank(implementedInterface, "Empty implemented interface name");
         implementedInterfaces.add(implementedInterface);
-        return this;
+        return (J) this;
     }
 
     public List<EnumValue> getValues() {
         return values;
     }
 
-    public JavaEnum addValue(EnumValue value) {
+    public <J extends JavaEnum> J addValue(EnumValue value) {
         failIfNull(value, "Empty enum value");
         values.add(value);
-        return this;
+        return (J) this;
     }
 
     public List<Field> getFields() {
         return fields;
     }
 
-    public JavaEnum addField(Field field) {
+    public <J extends JavaEnum> J addField(Field field) {
         failIfNull(field, "Empty Java enum field");
         fields.add(field);
-        return this;
+        return (J) this;
     }
 
     public List<Method> getMethods() {
         return methods;
     }
 
-    public JavaEnum addMethod(Method method) {
+    public <J extends JavaEnum> J addMethod(Method method) {
         failIfNull(method, "Empty Java enum method");
         failIfInstanceOf(method, "Invalid Java enum method type: " + method.getClass().getSimpleName(), InterfaceMethod.class, AbstractMethod.class, Constructor.class);
         methods.add(method);
-        return this;
+        return (J) this;
     }
 
     @Override

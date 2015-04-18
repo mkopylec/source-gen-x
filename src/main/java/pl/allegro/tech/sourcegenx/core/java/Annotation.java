@@ -7,6 +7,7 @@ import static org.apache.commons.lang3.StringUtils.removeEnd;
 import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 
+@SuppressWarnings("unchecked")
 public class Annotation {
 
     private final String name;
@@ -29,11 +30,11 @@ public class Annotation {
         return attributes.get(attributeName);
     }
 
-    public Annotation addAttribute(String name, String value) {
+    public <A extends Annotation> A addAttribute(String name, String value) {
         failIfBlank(name, "Empty annotation attribute name");
         failIfBlank(value, "Empty annotation attribute value");
         attributes.put(name, value);
-        return this;
+        return (A) this;
     }
 
     @Override

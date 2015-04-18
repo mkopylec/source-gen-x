@@ -13,6 +13,7 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class JavaInterface extends SourceFile {
 
     private final String packageName;
@@ -55,20 +56,20 @@ public class JavaInterface extends SourceFile {
         return imports;
     }
 
-    public JavaInterface addImport(Import imp) {
+    public <J extends JavaInterface> J addImport(Import imp) {
         failIfNull(imp, "Empty Java interface import");
         imports.add(imp);
-        return this;
+        return (J) this;
     }
 
     public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-    public JavaInterface addAnnotation(Annotation annotation) {
+    public <J extends JavaInterface> J addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty Java interface annotation");
         annotations.add(annotation);
-        return this;
+        return (J) this;
     }
 
     public AccessModifier getAccessModifier() {
@@ -83,30 +84,30 @@ public class JavaInterface extends SourceFile {
         return superInterfaces;
     }
 
-    public JavaInterface addSuperInterface(String superInterface) {
+    public <J extends JavaInterface> J addSuperInterface(String superInterface) {
         failIfBlank(superInterface, "Empty super interface name");
         superInterfaces.add(superInterface);
-        return this;
+        return (J) this;
     }
 
     public List<InterfaceConstant> getConstants() {
         return constants;
     }
 
-    public JavaInterface addConstant(InterfaceConstant constant) {
+    public <J extends JavaInterface> J addConstant(InterfaceConstant constant) {
         failIfNull(constant, "Empty interface constant");
         constants.add(constant);
-        return this;
+        return (J) this;
     }
 
     public List<InterfaceMethod> getMethods() {
         return methods;
     }
 
-    public JavaInterface addMethod(InterfaceMethod method) {
+    public <J extends JavaInterface> J addMethod(InterfaceMethod method) {
         failIfNull(method, "Empty Java interface method");
         methods.add(method);
-        return this;
+        return (J) this;
     }
 
     @Override

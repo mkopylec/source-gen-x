@@ -37,7 +37,7 @@ class MethodSpec extends Specification {
         PRIVATE         | FINAL        | 'private final String getMessage() {\n}'
     }
 
-    def "Should create non empty, annotated method with parameters"() {
+    def "Should create non empty, annotated method with parameters and thrown exceptions"() {
         given:
         Method method = new Method('String', 'getMessage')
                 .setBody('\treturn "I am message";')
@@ -45,6 +45,8 @@ class MethodSpec extends Specification {
                 .addAnnotation(new Annotation("Override"))
                 .addParameter(new Parameter("int", "age"))
                 .addParameter(new Parameter("boolean", "valid"))
+                .addThrownException('IOException')
+                .addThrownException('RuntimeException')
 
         when:
         def string = method.toString()
@@ -53,7 +55,7 @@ class MethodSpec extends Specification {
         string ==
                 '@Deprecated\n' +
                 '@Override\n' +
-                'public String getMessage(int age, boolean valid) {\n' +
+                'public String getMessage(int age, boolean valid) throws IOException, RuntimeException {\n' +
                 '\treturn "I am message";\n' +
                 '}'
     }

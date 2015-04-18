@@ -15,6 +15,7 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class Field {
 
     private final List<Annotation> annotations = new ArrayList<>();
@@ -44,10 +45,10 @@ public class Field {
         return annotations;
     }
 
-    public Field addAnnotation(Annotation annotation) {
+    public <F extends Field> F addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty field annotation");
         annotations.add(annotation);
-        return this;
+        return (F) this;
     }
 
     public AccessModifier getAccessModifier() {
@@ -70,10 +71,10 @@ public class Field {
         return value;
     }
 
-    public Field setValue(String value) {
+    public <F extends Field> F setValue(String value) {
         failIfBlank(value, "Empty field value");
         this.value = value;
-        return this;
+        return (F) this;
     }
 
     @Override

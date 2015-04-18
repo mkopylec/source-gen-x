@@ -7,6 +7,7 @@ import static org.apache.commons.lang3.StringUtils.join;
 import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpaces;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 
+@SuppressWarnings("unchecked")
 public class EnumValue {
 
     private final String name;
@@ -25,10 +26,10 @@ public class EnumValue {
         return arguments;
     }
 
-    public EnumValue addArgument(String argument) {
+    public <E extends EnumValue> E addArgument(String argument) {
         failIfBlank(argument, "Empty enum value argument");
         arguments.add(argument);
-        return this;
+        return (E) this;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AbstractMethod extends Method {
     }
 
     @Override
-    public Method setBody(String body) {
+    public <M extends Method> M setBody(String body) {
         throw new IllegalOperationException("Abstract method cannot have body");
     }
 

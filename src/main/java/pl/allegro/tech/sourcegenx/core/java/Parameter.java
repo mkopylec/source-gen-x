@@ -10,6 +10,7 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class Parameter {
 
     private final List<Annotation> annotations = new ArrayList<>();
@@ -35,10 +36,10 @@ public class Parameter {
         return annotations;
     }
 
-    public Parameter addAnnotation(Annotation annotation) {
+    public <P extends Parameter> P addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty parameter annotation");
         annotations.add(annotation);
-        return this;
+        return (P) this;
     }
 
     public String getType() {

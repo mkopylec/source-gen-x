@@ -22,16 +22,11 @@ public class InterfaceMethod extends Method {
     }
 
     @Override
-    public InterfaceMethod addParameter(Parameter parameter) {
-        return (InterfaceMethod) super.addParameter(parameter);
-    }
-
-    @Override
-    public InterfaceMethod setBody(String body) {
+    public <M extends Method> M setBody(String body) {
         if (getModifier() == NONE) {
             throw new IllegalOperationException("Interface method with no modifier cannot have body");
         }
-        return (InterfaceMethod) super.setBody(body);
+        return super.setBody(body);
     }
 
     @Override

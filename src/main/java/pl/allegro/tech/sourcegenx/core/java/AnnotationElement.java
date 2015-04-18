@@ -9,6 +9,7 @@ import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpace
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfOneOf;
 
+@SuppressWarnings("unchecked")
 public class AnnotationElement extends Method {
 
     private String defaultValue;
@@ -23,12 +24,12 @@ public class AnnotationElement extends Method {
     }
 
     @Override
-    public AnnotationElement addParameter(Parameter parameter) {
+    public <M extends Method> M addParameter(Parameter parameter) {
         throw new IllegalOperationException("Annotation element cannot have parameters");
     }
 
     @Override
-    public AnnotationElement setBody(String body) {
+    public <M extends Method> M setBody(String body) {
         throw new IllegalOperationException("Annotation element cannot have body");
     }
 
@@ -36,10 +37,10 @@ public class AnnotationElement extends Method {
         return defaultValue;
     }
 
-    public AnnotationElement setDefaultValue(String defaultValue) {
+    public <A extends AnnotationElement> A setDefaultValue(String defaultValue) {
         failIfBlank(defaultValue, "Empty annotation element default value");
         this.defaultValue = defaultValue;
-        return this;
+        return (A) this;
     }
 
     @Override

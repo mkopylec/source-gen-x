@@ -13,6 +13,7 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNotOneOf;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class JavaAnnotation extends SourceFile {
 
     private final String packageName;
@@ -45,20 +46,20 @@ public class JavaAnnotation extends SourceFile {
         return imports;
     }
 
-    public JavaAnnotation addImport(Import imp) {
+    public <J extends JavaAnnotation> J addImport(Import imp) {
         failIfNull(imp, "Empty Java annotation import");
         imports.add(imp);
-        return this;
+        return (J) this;
     }
 
     public List<Annotation> getAnnotations() {
         return annotations;
     }
 
-    public JavaAnnotation addAnnotation(Annotation annotation) {
+    public <J extends JavaAnnotation> J addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty Java annotation annotation");
         annotations.add(annotation);
-        return this;
+        return (J) this;
     }
 
     public AccessModifier getAccessModifier() {
@@ -73,10 +74,10 @@ public class JavaAnnotation extends SourceFile {
         return elements;
     }
 
-    public JavaAnnotation addElement(AnnotationElement element) {
+    public <J extends JavaAnnotation> J addElement(AnnotationElement element) {
         failIfNull(element, "Empty Java annotation element");
         elements.add(element);
-        return this;
+        return (J) this;
     }
 
     @Override

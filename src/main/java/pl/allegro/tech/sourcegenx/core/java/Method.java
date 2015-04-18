@@ -10,6 +10,7 @@ import static pl.allegro.tech.sourcegenx.utils.StringHelper.removeRedundantSpace
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfBlank;
 import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
+@SuppressWarnings("unchecked")
 public class Method {
 
     private final List<Annotation> annotations = new ArrayList<>();
@@ -19,6 +20,7 @@ public class Method {
     private final String name;
     private final List<Parameter> parameters = new ArrayList<>();
     private String body;
+    private final List<String> thrownExceptions = new ArrayList<>();
 
     public Method(String returnType, String name) {
         this(PUBLIC, NONE, returnType, name);
@@ -39,10 +41,10 @@ public class Method {
         return annotations;
     }
 
-    public Method addAnnotation(Annotation annotation) {
+    public <M extends Method> M addAnnotation(Annotation annotation) {
         failIfNull(annotation, "Empty method annotation");
         annotations.add(annotation);
-        return this;
+        return (M) this;
     }
 
     public AccessModifier getAccessModifier() {
@@ -65,20 +67,30 @@ public class Method {
         return parameters;
     }
 
-    public Method addParameter(Parameter parameter) {
+    public <M extends Method> M addParameter(Parameter parameter) {
         failIfNull(parameter, "Empty method parameter");
         parameters.add(parameter);
-        return this;
+        return (M) this;
     }
 
     public String getBody() {
         return body;
     }
 
-    public Method setBody(String body) {
+    public <M extends Method> M setBody(String body) {
         failIfBlank(body, "Empty method body");
         this.body = body;
-        return this;
+        return (M) this;
+    }
+
+    public List<String> getThrownExceptions() {
+        return thrownExceptions;
+    }
+
+    public <M extends Method> M addThrownException(String exception) {
+        failIfBlank(exception, "Empty method thrown exception");
+        thrownExceptions.add(exception);
+        return (M) this;
     }
 
     @Override
@@ -88,7 +100,7 @@ public class Method {
             builder.append(annotation).append("\n");
         }
         return removeRedundantSpaces(builder.toString() +
-                accessModifier + " " + modifier + " " + returnType + " " + name + "(" + join(parameters, ", ") + ") {\n"
+                accessModifier + " " + modifier + " " + returnType + " " + name + "(" + join(parameters, ", ") + ") " + (thrownExceptions.isEmpty() ? "" : ("throws " + join(thrownExceptions, ", ") + " ")) + "{\n"
                 + (body == null ? "" : (body + "\n"))
                 + "}");
     }
