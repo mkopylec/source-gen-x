@@ -32,20 +32,8 @@ public final class Validator {
         }
     }
 
-    public static void failIfDoesNotMatch(String value, String regex, String message) {
-        if (!value.matches(regex)) {
-            throw new InvalidValueException(message);
-        }
-    }
-
     public static void failIfInstanceOf(Object value, String message, Class<?>... allowedClasses) {
         if (contains(allowedClasses, value.getClass())) {
-            throw new InvalidValueException(message);
-        }
-    }
-
-    public static void failIfNotInstanceOf(Object value, String message, Class<?>... allowedClasses) {
-        if (!contains(allowedClasses, value.getClass())) {
             throw new InvalidValueException(message);
         }
     }
