@@ -6,7 +6,8 @@ public enum SourceFileType {
     JAVA_INTERFACE("java-interface", ".java"),
     JAVA_ENUM("java-enum", ".java"),
     JAVA_ANNOTATION("java-annotation", ".java"),
-    PROPERTIES("properties", ".properties");
+    CONFIG_PROPERTIES("config-properties", ".properties"),
+    CONFIG_YAML("config-yaml", ".yaml");
 
     private final String templateName;
     private final String fileExtension;

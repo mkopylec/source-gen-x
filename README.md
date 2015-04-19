@@ -144,6 +144,22 @@ Output Secured.java:
         String[] allowedRoles() default {"ADMIN", "CUSTOMER"};
     }
 
+### Generating a configuration properties file
+Creating a sample properties file:
+
+```java
+ConfigProperties properties = new ConfigProperties()
+        .addProperty(new Property("database.name", "test"))
+        .addProperty(new Property("database.host", "localhost"));
+
+properties.createSourceFile("/demo/src/main/java/sourcegenx/demo", "application");
+```
+
+Output application.properties:
+
+    database.name=test
+    database.host=localhost
+
 ## More examples
 See test specifications for more samples:
 
@@ -151,6 +167,7 @@ See test specifications for more samples:
 - [Java interface spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaInterfaceSpec.groovy)
 - [Java enum spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaEnumSpec.groovy)
 - [Java annotation spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaAnnotationSpec.groovy)
+- [Config properties spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/ConfigPropertiesSpec.groovy)
 
 ## License
 Source Gen-X is published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).

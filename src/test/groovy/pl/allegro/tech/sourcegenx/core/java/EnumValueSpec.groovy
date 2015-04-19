@@ -4,7 +4,7 @@ import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pl.allegro.tech.sourcegenx.CommonUtils.emptyValues
+import static pl.allegro.tech.sourcegenx.SpecCommonUtils.emptyValues
 
 class EnumValueSpec extends Specification {
 

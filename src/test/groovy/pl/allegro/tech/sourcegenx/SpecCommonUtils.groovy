@@ -1,6 +1,6 @@
 package pl.allegro.tech.sourcegenx
 
-class CommonUtils {
+class SpecCommonUtils {
 
     private static final String[] EMPTY_VALUES = [null, '', ' ', '   ']
 
@@ -8,6 +8,6 @@ class CommonUtils {
         return EMPTY_VALUES
     }
 
-    private CommonUtils() {
+    private SpecCommonUtils() {
     }
 }

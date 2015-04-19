@@ -5,7 +5,7 @@ import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException
 import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException
 import spock.lang.Specification
 
-import static pl.allegro.tech.sourcegenx.CommonUtils.emptyValues
+import static pl.allegro.tech.sourcegenx.SpecCommonUtils.emptyValues
 
 class AnnotationElementSpec extends Specification {
 

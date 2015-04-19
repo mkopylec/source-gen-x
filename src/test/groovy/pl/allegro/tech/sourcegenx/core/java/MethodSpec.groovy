@@ -4,7 +4,7 @@ import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pl.allegro.tech.sourcegenx.CommonUtils.emptyValues
+import static pl.allegro.tech.sourcegenx.SpecCommonUtils.emptyValues
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PACKAGE_PRIVATE
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PRIVATE
 import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PROTECTED
