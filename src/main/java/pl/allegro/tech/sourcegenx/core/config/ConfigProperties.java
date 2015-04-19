@@ -3,7 +3,6 @@ package pl.allegro.tech.sourcegenx.core.config;
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +32,5 @@ public class ConfigProperties extends SourceFile {
     protected void fillTemplate(ST template) {
         template
                 .add("properties", properties);
-    }
-
-    public static void main(String[] args) throws IOException {
-        ConfigProperties properties = new ConfigProperties()
-                .addProperty(new Property("database.name", "test"))
-                .addProperty(new Property("database.host", "localhost"));
-
-        properties.createSourceFile("spec", "application");
     }
 }
