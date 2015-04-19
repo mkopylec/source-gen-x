@@ -34,7 +34,7 @@ class JavaEnumSpec extends Specification {
                 .addAnnotation(new Annotation('Override'))
                 .setBody('    return name;')
 
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', PUBLIC, 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', PUBLIC, 'MessageType')
                 .addImport(new Import('java.io.Serializable'))
                 .addImport(new Import('pl.allegro.tech.Logged'))
                 .addImport(new Import(STATIC, 'pl.allegro.tech.LogLevel.INFO'))
@@ -56,12 +56,18 @@ class JavaEnumSpec extends Specification {
 
         then:
         string == getClass().getResource('/MessageType.txt').text
+
+        when:
+        javaEnum.createSourceFile()
+
+        then:
+        new File('spec/MessageType.java').text.replaceAll('\r', '') == getClass().getResource('/MessageType.txt').text
     }
 
     @Unroll
     def "Should fail to create Java enum when package name is '#packageName'"() {
         when:
-        new JavaEnum('src', packageName, 'MessageType')
+        new JavaEnum('spec', packageName, 'MessageType')
 
         then:
         thrown EmptyValueException
@@ -73,7 +79,7 @@ class JavaEnumSpec extends Specification {
     @Unroll
     def "Should fail to create Java enum when interface name is '#enumName'"() {
         when:
-        new JavaEnum('src', 'pl.allegro.tech', enumName)
+        new JavaEnum('spec', 'pl.allegro.tech', enumName)
 
         then:
         thrown EmptyValueException
@@ -84,7 +90,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to create Java enum when access modifier is empty"() {
         when:
-        new JavaEnum('src', 'pl.allegro.tech', null, 'MessageType')
+        new JavaEnum('spec', 'pl.allegro.tech', null, 'MessageType')
 
         then:
         thrown EmptyValueException
@@ -93,7 +99,7 @@ class JavaEnumSpec extends Specification {
     @Unroll
     def "Should fail to create Java enum when access modifier is '#accessModifier'"() {
         when:
-        new JavaEnum('src', 'pl.allegro.tech', accessModifier, 'MessageType')
+        new JavaEnum('spec', 'pl.allegro.tech', accessModifier, 'MessageType')
 
         then:
         thrown InvalidValueException
@@ -104,7 +110,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to add empty import to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addImport(null)
@@ -115,7 +121,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to add empty annotation to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addAnnotation(null)
@@ -127,7 +133,7 @@ class JavaEnumSpec extends Specification {
     @Unroll
     def "Should fail to add '#interfac' implemented interface to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addImplementedInterface(interfac)
@@ -141,7 +147,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to add empty value to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addValue(null)
@@ -152,7 +158,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to add empty field to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addField(null)
@@ -163,7 +169,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to add empty method to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addMethod(null)
@@ -175,7 +181,7 @@ class JavaEnumSpec extends Specification {
     @Unroll
     def "Should fail to add #description method to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addMethod(method)
@@ -192,7 +198,7 @@ class JavaEnumSpec extends Specification {
 
     def "Should fail to add invalid constructor to Java enum"() {
         given:
-        def javaEnum = new JavaEnum('src', 'pl.allegro.tech', 'MessageType')
+        def javaEnum = new JavaEnum('spec', 'pl.allegro.tech', 'MessageType')
 
         when:
         javaEnum.addMethod(new Constructor('InvalidName'))
