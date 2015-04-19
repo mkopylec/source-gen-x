@@ -167,7 +167,7 @@ See test specifications for more samples:
 - [Java interface spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaInterfaceSpec.groovy)
 - [Java enum spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaEnumSpec.groovy)
 - [Java annotation spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaAnnotationSpec.groovy)
-- [Config properties spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/ConfigPropertiesSpec.groovy)
+- [Config properties spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/config/ConfigPropertiesSpec.groovy)
 
 ## License
 Source Gen-X is published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
