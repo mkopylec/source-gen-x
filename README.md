@@ -152,7 +152,7 @@ ConfigProperties properties = new ConfigProperties()
         .addProperty(new Property("database.name", "test"))
         .addProperty(new Property("database.host", "localhost"));
 
-properties.createSourceFile("/demo/src/main/java/sourcegenx/demo", "application");
+properties.createSourceFile("/demo/src/main/resources", "application");
 ```
 
 Output application.properties:
