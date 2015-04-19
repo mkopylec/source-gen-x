@@ -3,6 +3,7 @@ package pl.allegro.tech.sourcegenx.core.java;
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,20 +26,12 @@ public class JavaInterface extends SourceFile {
     private final List<InterfaceConstant> constants = new ArrayList<>();
     private final List<InterfaceMethod> methods = new ArrayList<>();
 
-    public JavaInterface(String directory, String packageName, String interfaceName) {
-        this(directory, interfaceName, packageName, PUBLIC, interfaceName);
+    public JavaInterface(String packageName, String interfaceName) {
+        this(packageName, PUBLIC, interfaceName);
     }
 
-    public JavaInterface(String directory, String packageName, AccessModifier accessModifier, String interfaceName) {
-        this(directory, interfaceName, packageName, accessModifier, interfaceName);
-    }
-
-    public JavaInterface(String directory, String fileName, String packageName, String interfaceName) {
-        this(directory, fileName, packageName, PUBLIC, interfaceName);
-    }
-
-    public JavaInterface(String directory, String fileName, String packageName, AccessModifier accessModifier, String interfaceName) {
-        super(fileName, directory, JAVA_INTERFACE);
+    public JavaInterface(String packageName, AccessModifier accessModifier, String interfaceName) {
+        super(JAVA_INTERFACE);
         failIfBlank(packageName, "Empty Java interface package name");
         failIfNull(accessModifier, "Empty Java interface access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java interface access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
@@ -108,6 +101,10 @@ public class JavaInterface extends SourceFile {
         failIfNull(method, "Empty Java interface method");
         methods.add(method);
         return (J) this;
+    }
+
+    public void createSourceFile(String directory) throws IOException {
+        super.createSourceFile(directory, interfaceName);
     }
 
     @Override

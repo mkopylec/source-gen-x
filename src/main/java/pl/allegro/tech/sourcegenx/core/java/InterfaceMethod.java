@@ -22,6 +22,7 @@ public class InterfaceMethod extends Method {
     }
 
     @Override
+    @Deprecated
     public <M extends Method> M setBody(String body) {
         if (getModifier() == NONE) {
             throw new IllegalOperationException("Interface method with no modifier cannot have body");

@@ -22,6 +22,7 @@ public class AbstractMethod extends Method {
     }
 
     @Override
+    @Deprecated
     public <M extends Method> M setBody(String body) {
         throw new IllegalOperationException("Abstract method cannot have body");
     }

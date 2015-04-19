@@ -28,7 +28,7 @@ class JavaInterfaceSpec extends Specification {
                 .addThrownException('DaoException')
                 .addThrownException('RuntimeException')
 
-        def javaInterface = new JavaInterface('spec', 'MessageDao', 'pl.allegro.tech', PUBLIC, 'MessageDao')
+        def javaInterface = new JavaInterface('pl.allegro.tech', PUBLIC, 'MessageDao')
                 .addImport(new Import('java.io.Serializable'))
                 .addImport(new Import('java.util.List'))
                 .addImport(new Import('pl.allegro.tech.Dao'))
@@ -51,7 +51,7 @@ class JavaInterfaceSpec extends Specification {
         string == getClass().getResource('/MessageDao.txt').text
 
         when:
-        javaInterface.createSourceFile()
+        javaInterface.createSourceFile('spec')
 
         then:
         new File('spec/MessageDao.java').text.replaceAll('\r', '') == getClass().getResource('/MessageDao.txt').text
@@ -60,7 +60,7 @@ class JavaInterfaceSpec extends Specification {
     @Unroll
     def "Should fail to create Java interface when package name is '#packageName'"() {
         when:
-        new JavaInterface('spec', packageName, 'MessageDao')
+        new JavaInterface(packageName, 'MessageDao')
 
         then:
         thrown EmptyValueException
@@ -72,7 +72,7 @@ class JavaInterfaceSpec extends Specification {
     @Unroll
     def "Should fail to create Java interface when interface name is '#interfaceName'"() {
         when:
-        new JavaInterface('spec', 'pl.allegro.tech', interfaceName)
+        new JavaInterface('pl.allegro.tech', interfaceName)
 
         then:
         thrown EmptyValueException
@@ -83,7 +83,7 @@ class JavaInterfaceSpec extends Specification {
 
     def "Should fail to create Java interface when access modifier is empty"() {
         when:
-        new JavaInterface('spec', 'MessageDao', 'pl.allegro.tech', null, 'MessageDao')
+        new JavaInterface('pl.allegro.tech', null, 'MessageDao')
 
         then:
         thrown EmptyValueException
@@ -92,7 +92,7 @@ class JavaInterfaceSpec extends Specification {
     @Unroll
     def "Should fail to create Java interface when access modifier is '#accessModifier'"() {
         when:
-        new JavaInterface('spec', 'MessageDao', 'pl.allegro.tech', accessModifier, 'MessageDao')
+        new JavaInterface('pl.allegro.tech', accessModifier, 'MessageDao')
 
         then:
         thrown InvalidValueException
@@ -103,7 +103,7 @@ class JavaInterfaceSpec extends Specification {
 
     def "Should fail to add empty import to Java interface"() {
         given:
-        def javaInterface = new JavaInterface('spec', 'pl.allegro.tech', 'MessageDao')
+        def javaInterface = new JavaInterface('pl.allegro.tech', 'MessageDao')
 
         when:
         javaInterface.addImport(null)
@@ -114,7 +114,7 @@ class JavaInterfaceSpec extends Specification {
 
     def "Should fail to add empty annotation to Java interface"() {
         given:
-        def javaInterface = new JavaInterface('spec', 'pl.allegro.tech', 'MessageDao')
+        def javaInterface = new JavaInterface('pl.allegro.tech', 'MessageDao')
 
         when:
         javaInterface.addAnnotation(null)
@@ -126,7 +126,7 @@ class JavaInterfaceSpec extends Specification {
     @Unroll
     def "Should fail to add '#interfac' super interface to Java interface"() {
         given:
-        def javaInterface = new JavaInterface('spec', 'pl.allegro.tech', 'MessageDao')
+        def javaInterface = new JavaInterface('pl.allegro.tech', 'MessageDao')
 
         when:
         javaInterface.addSuperInterface(interfac)
@@ -140,7 +140,7 @@ class JavaInterfaceSpec extends Specification {
 
     def "Should fail to add empty interface constant to Java interface"() {
         given:
-        def javaInterface = new JavaInterface('spec', 'pl.allegro.tech', 'MessageDao')
+        def javaInterface = new JavaInterface('pl.allegro.tech', 'MessageDao')
 
         when:
         javaInterface.addConstant(null)
@@ -151,7 +151,7 @@ class JavaInterfaceSpec extends Specification {
 
     def "Should fail to add empty interface method to Java interface"() {
         given:
-        def javaInterface = new JavaInterface('spec', 'pl.allegro.tech', 'MessageDao')
+        def javaInterface = new JavaInterface('pl.allegro.tech', 'MessageDao')
 
         when:
         javaInterface.addMethod(null)

@@ -39,7 +39,7 @@ class JavaClassSpec extends Specification {
                 '    }\n' +
                 '    throw new Exception("Invalid message length");')
 
-        def javaClass = new JavaClass('spec', 'MessageProvider', 'pl.allegro.tech', PUBLIC, ABSTRACT, 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', PUBLIC, ABSTRACT, 'MessageProvider')
                 .addImport(new Import('java.io.Serializable'))
                 .addImport(new Import('pl.allegro.tech.Logged'))
                 .addImport(new Import('pl.allegro.tech.NotNull'))
@@ -63,7 +63,7 @@ class JavaClassSpec extends Specification {
         string == getClass().getResource('/MessageProvider.txt').text
 
         when:
-        javaClass.createSourceFile()
+        javaClass.createSourceFile('spec')
 
         then:
         new File('spec/MessageProvider.java').text.replaceAll('\r', '') == getClass().getResource('/MessageProvider.txt').text
@@ -72,7 +72,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to create Java class when package name is '#packageName'"() {
         when:
-        new JavaClass('spec', packageName, 'MessageProvider')
+        new JavaClass(packageName, 'MessageProvider')
 
         then:
         thrown EmptyValueException
@@ -84,7 +84,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to create Java class when class name is '#className'"() {
         when:
-        new JavaClass('spec', 'pl.allegro.tech', className)
+        new JavaClass('pl.allegro.tech', className)
 
         then:
         thrown EmptyValueException
@@ -95,7 +95,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to create Java class when access modifier is empty"() {
         when:
-        new JavaClass('spec', 'MessageProvider', 'pl.allegro.tech', null, NONE, 'MessageProvider')
+        new JavaClass('pl.allegro.tech', null, NONE, 'MessageProvider')
 
         then:
         thrown EmptyValueException
@@ -104,7 +104,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to create Java class when access modifier is '#accessModifier'"() {
         when:
-        new JavaClass('spec', 'MessageProvider', 'pl.allegro.tech', accessModifier, NONE, 'MessageProvider')
+        new JavaClass('pl.allegro.tech', accessModifier, NONE, 'MessageProvider')
 
         then:
         thrown InvalidValueException
@@ -115,7 +115,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to create Java class when modifier is empty"() {
         when:
-        new JavaClass('spec', 'MessageProvider', 'pl.allegro.tech', PUBLIC, null, 'MessageProvider')
+        new JavaClass('pl.allegro.tech', PUBLIC, null, 'MessageProvider')
 
         then:
         thrown EmptyValueException
@@ -124,7 +124,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to create Java class when modifier is '#modifier'"() {
         when:
-        new JavaClass('spec', 'MessageProvider', 'pl.allegro.tech', PUBLIC, modifier, 'MessageProvider')
+        new JavaClass('pl.allegro.tech', PUBLIC, modifier, 'MessageProvider')
 
         then:
         thrown InvalidValueException
@@ -135,7 +135,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to add empty import to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addImport(null)
@@ -146,7 +146,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to add empty annotation to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addAnnotation(null)
@@ -158,7 +158,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to set '#superClass' super class to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.setSuperClass(superClass)
@@ -173,7 +173,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to add '#interfac' implemented interface to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addImplementedInterface(interfac)
@@ -187,7 +187,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to add empty field to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addField(null)
@@ -198,7 +198,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to add empty method to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addMethod(null)
@@ -210,7 +210,7 @@ class JavaClassSpec extends Specification {
     @Unroll
     def "Should fail to add #description method to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addMethod(method)
@@ -226,7 +226,7 @@ class JavaClassSpec extends Specification {
 
     def "Should fail to add invalid constructor to Java class"() {
         given:
-        def javaClass = new JavaClass('spec', 'pl.allegro.tech', 'MessageProvider')
+        def javaClass = new JavaClass('pl.allegro.tech', 'MessageProvider')
 
         when:
         javaClass.addMethod(new Constructor('InvalidName'))

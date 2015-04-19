@@ -13,23 +13,20 @@ import static pl.allegro.tech.sourcegenx.utils.Validator.failIfNull;
 
 public abstract class SourceFile {
 
-    private final String fileName;
-    private String directory;
     private final SourceFileType fileType;
 
-    protected SourceFile(String fileName, String directory, SourceFileType fileType) {
-        failIfBlank(fileName, "Empty source file name");
-        failIfBlank(directory, "Empty source file directory");
+    protected SourceFile(SourceFileType fileType) {
         failIfNull(fileType, "Empty source file type");
-        this.fileName = fileName;
-        this.directory = correctDirectory(directory);
         this.fileType = fileType;
     }
 
-    public void createSourceFile() throws IOException {
+    public void createSourceFile(String directory, String fileName) throws IOException {
+        failIfBlank(fileName, "Empty source file name");
+        failIfBlank(directory, "Empty source file directory");
+        directory = correctDirectory(directory);
         ST template = getTemplate(fileType);
         fillTemplate(template);
-        File outputFile = new File(assembleFilePath());
+        File outputFile = new File(assembleFilePath(directory, fileName));
         outputFile.getParentFile().mkdirs();
         template.write(outputFile, new ErrorBuffer());
     }
@@ -41,21 +38,13 @@ public abstract class SourceFile {
         return template.render();
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getDirectory() {
-        return directory;
-    }
-
     public SourceFileType getFileType() {
         return fileType;
     }
 
     protected abstract void fillTemplate(ST template);
 
-    private String assembleFilePath() {
+    private String assembleFilePath(String directory, String fileName) {
         return directory + fileName + fileType.getFileExtension();
     }
 

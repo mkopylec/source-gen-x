@@ -26,11 +26,11 @@ Method main = new Method(AccessModifier.PUBLIC, Modifier.STATIC, "void", "main")
         .addParameter(new Parameter("String[]", "args"))
         .setBody("\tSystem.out.println(GREETING);");
 
-JavaClass mainClass = new JavaClass("sourcegenx.demo", "Application", userHome + "/demo/src/main/java/sourcegenx/demo")
+JavaClass mainClass = new JavaClass("sourcegenx.demo", "Application")
         .addField(constant)
         .addMethod(main);
 
-mainClass.createSourceFile();
+mainClass.createSourceFile("/demo/src/main/java/sourcegenx/demo");
 ```
     
 Output Application.java:
@@ -56,11 +56,11 @@ Import imp = new Import("sourcegenx.demo.entities.User");
 InterfaceMethod findMethod = new InterfaceMethod("User", "findById")
         .addParameter(new Parameter("long", "id"));
        
-JavaInterface dao = new JavaInterface("UserDao", "sourcegenx.demo", "UserDao<User>", userHome + "/demo/src/main/java/sourcegenx/demo")
+JavaInterface dao = new JavaInterface("sourcegenx.demo", "UserDao<User>")
         .addImport(imp)
         .addMethod(findMethod);
         
-dao.createSourceFile();
+dao.createSourceFile("/demo/src/main/java/sourcegenx/demo", "UserDao");
 ```
         
 Output UserDao.java:
@@ -79,13 +79,13 @@ Output UserDao.java:
 Creating a sample cardinal directions enum:
 
 ```java
-JavaEnum directions = new JavaEnum("sourcegenx.demo", "CardinalDirection", userHome + "/demo/src/main/java/sourcegenx/demo")
+JavaEnum directions = new JavaEnum("sourcegenx.demo", "CardinalDirection")
         .addValue(new EnumValue("NORTH"))
         .addValue(new EnumValue("WEST"))
         .addValue(new EnumValue("SOUTH"))
         .addValue(new EnumValue("EAST"));
         
-directions.createSourceFile();
+directions.createSourceFile("/demo/src/main/java/sourcegenx/demo");
 ```
     
 Output CardinalDirection.java:
@@ -116,7 +116,7 @@ Annotation retention = new Annotation("Retention")
 AnnotationElement allowedRoles = new AnnotationElement("String[]", "allowedRoles")
         .setDefaultValue("{\"ADMIN\", \"CUSTOMER\"}");
 
-JavaAnnotation secured = new JavaAnnotation("sourcegenx.demo", "Secured", userHome + "/demo/src/main/java/sourcegenx/demo")
+JavaAnnotation secured = new JavaAnnotation("sourcegenx.demo", "Secured")
         .addImport(new Import("java.lang.annotation.Retention"))
         .addImport(new Import("java.lang.annotation.Target"))
         .addImport(new Import(Modifier.STATIC, "java.lang.annotation.ElementType.METHOD"))
@@ -125,7 +125,7 @@ JavaAnnotation secured = new JavaAnnotation("sourcegenx.demo", "Secured", userHo
         .addAnnotation(retention)
         .addElement(allowedRoles);
 
-secured.createSourceFile();
+secured.createSourceFile("/demo/src/main/java/sourcegenx/demo");
 ```
     
 Output Secured.java:

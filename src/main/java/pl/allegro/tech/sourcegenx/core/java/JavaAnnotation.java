@@ -2,7 +2,9 @@ package pl.allegro.tech.sourcegenx.core.java;
 
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +25,12 @@ public class JavaAnnotation extends SourceFile {
     private final String annotationName;
     private final List<AnnotationElement> elements = new ArrayList<>();
 
-    public JavaAnnotation(String directory, String packageName, String annotationName) {
-        this(directory, packageName, PUBLIC, annotationName);
+    public JavaAnnotation(String packageName, String annotationName) {
+        this(packageName, PUBLIC, annotationName);
     }
 
-    public JavaAnnotation(String directory, String packageName, AccessModifier accessModifier, String annotationName) {
-        super(annotationName, directory, JAVA_ANNOTATION);
+    public JavaAnnotation(String packageName, AccessModifier accessModifier, String annotationName) {
+        super(JAVA_ANNOTATION);
         failIfBlank(packageName, "Empty Java annotation package name");
         failIfNull(accessModifier, "Empty Java annotation access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java annotation access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
@@ -78,6 +80,16 @@ public class JavaAnnotation extends SourceFile {
         failIfNull(element, "Empty Java annotation element");
         elements.add(element);
         return (J) this;
+    }
+
+    public void createSourceFile(String directory) throws IOException {
+        super.createSourceFile(directory, annotationName);
+    }
+
+    @Override
+    @Deprecated
+    public void createSourceFile(String directory, String fileName) {
+        throw new IllegalOperationException("Cannot specify custom Java annotation source file name");
     }
 
     @Override

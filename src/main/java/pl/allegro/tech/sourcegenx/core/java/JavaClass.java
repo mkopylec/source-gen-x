@@ -3,6 +3,7 @@ package pl.allegro.tech.sourcegenx.core.java;
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,24 +32,20 @@ public class JavaClass extends SourceFile {
     private final List<Field> fields = new ArrayList<>();
     private final List<Method> methods = new ArrayList<>();
 
-    public JavaClass(String directory, String packageName, String className) {
-        this(directory, className, packageName, PUBLIC, NONE, className);
+    public JavaClass(String packageName, String className) {
+        this(packageName, PUBLIC, NONE, className);
     }
 
-    public JavaClass(String directory, String packageName, AccessModifier accessModifier, String className) {
-        this(directory, className, packageName, accessModifier, NONE, className);
+    public JavaClass(String packageName, AccessModifier accessModifier, String className) {
+        this(packageName, accessModifier, NONE, className);
     }
 
-    public JavaClass(String directory, String packageName, Modifier modifier, String className) {
-        this(directory, className, packageName, PUBLIC, modifier, className);
+    public JavaClass(String packageName, Modifier modifier, String className) {
+        this(packageName, PUBLIC, modifier, className);
     }
 
-    public JavaClass(String directory, String fileName, String packageName, String className) {
-        this(directory, fileName, packageName, PUBLIC, NONE, className);
-    }
-
-    public JavaClass(String directory, String fileName, String packageName, AccessModifier accessModifier, Modifier modifier, String className) {
-        super(fileName, directory, JAVA_CLASS);
+    public JavaClass(String packageName, AccessModifier accessModifier, Modifier modifier, String className) {
+        super(JAVA_CLASS);
         failIfBlank(packageName, "Empty Java class package name");
         failIfNull(accessModifier, "Empty Java class access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java class access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
@@ -139,6 +136,10 @@ public class JavaClass extends SourceFile {
         }
         methods.add(method);
         return (J) this;
+    }
+
+    public void createSourceFile(String directory) throws IOException {
+        super.createSourceFile(directory, className);
     }
 
     @Override

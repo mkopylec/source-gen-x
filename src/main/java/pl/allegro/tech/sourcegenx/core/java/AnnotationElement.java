@@ -24,11 +24,13 @@ public class AnnotationElement extends Method {
     }
 
     @Override
+    @Deprecated
     public <M extends Method> M addParameter(Parameter parameter) {
         throw new IllegalOperationException("Annotation element cannot have parameters");
     }
 
     @Override
+    @Deprecated
     public <M extends Method> M setBody(String body) {
         throw new IllegalOperationException("Annotation element cannot have body");
     }

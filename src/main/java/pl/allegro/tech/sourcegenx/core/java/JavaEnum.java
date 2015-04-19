@@ -2,7 +2,9 @@ package pl.allegro.tech.sourcegenx.core.java;
 
 import org.stringtemplate.v4.ST;
 import pl.allegro.tech.sourcegenx.core.SourceFile;
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +29,12 @@ public class JavaEnum extends SourceFile {
     private final List<Field> fields = new ArrayList<>();
     private final List<Method> methods = new ArrayList<>();
 
-    public JavaEnum(String directory, String packageName, String enumName) {
-        this(directory, packageName, PUBLIC, enumName);
+    public JavaEnum(String packageName, String enumName) {
+        this(packageName, PUBLIC, enumName);
     }
 
-    public JavaEnum(String directory, String packageName, AccessModifier accessModifier, String enumName) {
-        super(enumName, directory, JAVA_ENUM);
+    public JavaEnum(String packageName, AccessModifier accessModifier, String enumName) {
+        super(JAVA_ENUM);
         failIfBlank(packageName, "Empty Java enum package name");
         failIfNull(accessModifier, "Empty Java enum access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java enum access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
@@ -116,6 +118,16 @@ public class JavaEnum extends SourceFile {
         }
         methods.add(method);
         return (J) this;
+    }
+
+    public void createSourceFile(String directory) throws IOException {
+        super.createSourceFile(directory, enumName);
+    }
+
+    @Override
+    @Deprecated
+    public void createSourceFile(String directory, String fileName) {
+        throw new IllegalOperationException("Cannot specify custom Java enum source file name");
     }
 
     @Override
