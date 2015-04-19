@@ -40,13 +40,13 @@ class MethodSpec extends Specification {
     def "Should create non empty, annotated method with parameters and thrown exceptions"() {
         given:
         Method method = new Method('String', 'getMessage')
-                .setBody('\treturn "I am message";')
                 .addAnnotation(new Annotation("Deprecated"))
                 .addAnnotation(new Annotation("Override"))
                 .addParameter(new Parameter("int", "age"))
                 .addParameter(new Parameter("boolean", "valid"))
                 .addThrownException('IOException')
                 .addThrownException('RuntimeException')
+                .setBody('\treturn "I am message";')
 
         when:
         def string = method.toString()

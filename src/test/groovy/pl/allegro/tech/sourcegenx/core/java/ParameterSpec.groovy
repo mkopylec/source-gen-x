@@ -18,7 +18,7 @@ class ParameterSpec extends Specification {
     @Unroll
     def "Should create a #modifier method parameter"() {
         given:
-        Parameter parameter = new Parameter('String', 'message', modifier)
+        Parameter parameter = new Parameter(modifier, 'String', 'message')
 
         when:
         def string = parameter.toString()
@@ -35,7 +35,7 @@ class ParameterSpec extends Specification {
     @Unroll
     def "Should create an annotated #modifier method parameter"() {
         given:
-        Parameter parameter = new Parameter('String', 'message', modifier)
+        Parameter parameter = new Parameter(modifier, 'String', 'message')
                 .addAnnotation(new Annotation('NotNull'))
                 .addAnnotation(new Annotation('NotEmpty'))
 
@@ -77,7 +77,7 @@ class ParameterSpec extends Specification {
 
     def "Should fail to create method parameter when modifier is empty"() {
         when:
-        new Parameter('String', 'message', null)
+        new Parameter(null, 'String', 'message')
 
         then:
         thrown EmptyValueException
@@ -86,7 +86,7 @@ class ParameterSpec extends Specification {
     @Unroll
     def "Should fail to create method parameter when modifier is #modifier"() {
         when:
-        new Parameter('String', 'message', modifier)
+        new Parameter(modifier, 'String', 'message')
 
         then:
         thrown InvalidValueException
@@ -97,7 +97,7 @@ class ParameterSpec extends Specification {
 
     def "Should fail to add empty annotation to method parameter"() {
         given:
-        def parameter = new Parameter('String', 'message', NONE)
+        def parameter = new Parameter(NONE, 'String', 'message')
 
         when:
         parameter.addAnnotation(null)

@@ -15,9 +15,11 @@ import static pl.allegro.tech.sourcegenx.core.java.Modifier.STATIC_FINAL
 class InterfaceMethodSpec extends Specification {
 
     @Unroll
-    def "Should create empty #modifier interface method"() {
+    def "Should create empty #modifier interface method with thrown exceptions"() {
         given:
         InterfaceMethod method = new InterfaceMethod(modifier, 'String', 'getMessage')
+                .addThrownException("Exception")
+                .addThrownException("RuntimeException")
 
         when:
         def string = method.toString()
@@ -27,25 +29,27 @@ class InterfaceMethodSpec extends Specification {
 
         where:
         modifier | result
-        NONE     | 'String getMessage();'
-        DEFAULT  | 'default String getMessage() {\n}'
-        STATIC   | 'static String getMessage() {\n}'
+        NONE    | 'String getMessage() throws Exception, RuntimeException;'
+        DEFAULT | 'default String getMessage() throws Exception, RuntimeException {\n}'
+        STATIC  | 'static String getMessage() throws Exception, RuntimeException {\n}'
     }
 
     @Unroll
-    def "Should create non empty, #modifier interface method with parameters"() {
+    def "Should create non empty, #modifier interface method with parameters and thrown exceptions"() {
         given:
         InterfaceMethod method = new InterfaceMethod(modifier, 'String', 'getMessage')
-                .setBody('\treturn "I am message";')
                 .addParameter(new Parameter('int', 'age'))
                 .addParameter(new Parameter('boolean', 'valid'))
+                .addThrownException("Exception")
+                .addThrownException("RuntimeException")
+                .setBody('\treturn "I am message";')
 
         when:
         def string = method.toString()
 
         then:
         "$string" ==
-                "$modifier String getMessage(int age, boolean valid) {\n" +
+                "$modifier String getMessage(int age, boolean valid) throws Exception, RuntimeException {\n" +
                 "\treturn \"I am message\";\n" +
                 "}"
 

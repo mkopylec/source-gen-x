@@ -28,6 +28,7 @@ public class AbstractMethod extends Method {
 
     @Override
     public String toString() {
-        return removeRedundantSpaces(getAccessModifier() + " " + getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ");");
+        return removeRedundantSpaces(getAccessModifier() + " " + getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ")"
+                + (getThrownExceptions().isEmpty() ? "" : (" throws " + join(getThrownExceptions(), ", "))) + ";");
     }
 }

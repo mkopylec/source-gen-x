@@ -20,16 +20,18 @@ class AnnotationElementSpec extends Specification {
         string == 'String message();'
     }
 
-    def "Should create annotation element with default value"() {
+    def "Should create annotation element with default value and annotations"() {
         given:
         def element = new AnnotationElement('String', 'message')
                 .setDefaultValue('"I am message"')
+                .addAnnotation(new Annotation('NotNull'))
+                .addAnnotation(new Annotation('NotNumber'))
 
         when:
         def string = element.toString()
 
         then:
-        string == 'String message() default "I am message";'
+        string == '@NotNull @NotNumber String message() default "I am message";'
     }
 
     def "Should fail to create annotation element when type is void"() {

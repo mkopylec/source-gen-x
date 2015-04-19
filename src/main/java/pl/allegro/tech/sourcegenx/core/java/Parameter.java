@@ -19,10 +19,10 @@ public class Parameter {
     private final Modifier modifier;
 
     public Parameter(String type, String name) {
-        this(type, name, NONE);
+        this(NONE, type, name);
     }
 
-    public Parameter(String type, String name, Modifier modifier) {
+    public Parameter(Modifier modifier, String type, String name) {
         failIfBlank(type, "Empty parameter type");
         failIfBlank(name, "Empty parameter name");
         failIfNull(modifier, "Empty parameter modifier");

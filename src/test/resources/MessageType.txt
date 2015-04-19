@@ -1,0 +1,37 @@
+package pl.allegro.tech;
+
+import java.io.Serializable;
+import pl.allegro.tech.Logged;
+import static pl.allegro.tech.LogLevel.INFO;
+
+@SuppressWarnings("unchecked")
+@Deprecated
+public enum MessageType implements Serializable {
+
+    TEXT("txt", 1024),
+    BINARY("bin", 2048);
+
+    public static final String EMPTY_MESSAGE = "";
+    @Deprecated
+    private String name;
+    private final int length;
+
+    MessageType(String name, int length) {
+        this.name = name;
+        this.length = length;
+    }
+
+    @Logged(level = INFO)
+    public String getName() {
+        return name;
+    }
+
+    public final int getLength() throws Exception {
+        return length;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}

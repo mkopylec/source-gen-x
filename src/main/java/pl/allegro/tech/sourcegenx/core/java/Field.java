@@ -81,7 +81,7 @@ public class Field {
         for (Annotation annotation : annotations) {
             builder.append(annotation).append("\n");
         }
-        String s = builder.toString() + accessModifier + " " + modifier + " " + type + " " + name;
+        String s = builder.toString() + removeRedundantSpaces(accessModifier + " " + modifier + " " + type + " " + name);
         if (value != null) {
             s += " = " + value;
         }

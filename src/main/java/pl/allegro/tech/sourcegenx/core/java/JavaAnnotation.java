@@ -23,16 +23,16 @@ public class JavaAnnotation extends SourceFile {
     private final String annotationName;
     private final List<AnnotationElement> elements = new ArrayList<>();
 
-    public JavaAnnotation(String packageName, String annotationName, String directory) {
-        this(packageName, annotationName, directory, PUBLIC);
+    public JavaAnnotation(String directory, String packageName, String annotationName) {
+        this(directory, packageName, PUBLIC, annotationName);
     }
 
-    public JavaAnnotation(String packageName, String annotationName, String directory, AccessModifier accessModifier) {
+    public JavaAnnotation(String directory, String packageName, AccessModifier accessModifier, String annotationName) {
         super(annotationName, directory, JAVA_ANNOTATION);
         failIfBlank(packageName, "Empty Java annotation package name");
-        failIfBlank(annotationName, "Empty Java annotation name");
         failIfNull(accessModifier, "Empty Java annotation access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java annotation access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
+        failIfBlank(annotationName, "Empty Java annotation name");
         this.packageName = packageName;
         this.accessModifier = accessModifier;
         this.annotationName = annotationName;

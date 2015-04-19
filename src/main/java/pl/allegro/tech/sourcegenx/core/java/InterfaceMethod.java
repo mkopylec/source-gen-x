@@ -34,6 +34,7 @@ public class InterfaceMethod extends Method {
         if (getBody() != null || getModifier() != NONE) {
             return super.toString();
         }
-        return removeRedundantSpaces(getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ");");
+        return removeRedundantSpaces(getModifier() + " " + getReturnType() + " " + getName() + "(" + join(getParameters(), ", ") + ")"
+                + (getThrownExceptions().isEmpty() ? "" : (" throws " + join(getThrownExceptions(), ", "))) + ";");
     }
 }

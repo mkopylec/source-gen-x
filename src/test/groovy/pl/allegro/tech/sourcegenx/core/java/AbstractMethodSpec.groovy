@@ -13,9 +13,11 @@ import static pl.allegro.tech.sourcegenx.core.java.AccessModifier.PUBLIC
 class AbstractMethodSpec extends Specification {
 
     @Unroll
-    def "Should create #accessModifier abstract method"() {
+    def "Should create #accessModifier abstract method with thrown exceptions"() {
         given:
         def method = new AbstractMethod(accessModifier, 'String', 'getMessage')
+                .addThrownException("Exception")
+                .addThrownException("RuntimeException")
 
         when:
         def string = method.toString()
@@ -25,9 +27,9 @@ class AbstractMethodSpec extends Specification {
 
         where:
         accessModifier  | result
-        PUBLIC          | 'public abstract String getMessage();'
-        PROTECTED       | 'protected abstract String getMessage();'
-        PACKAGE_PRIVATE | 'abstract String getMessage();'
+        PUBLIC          | 'public abstract String getMessage() throws Exception, RuntimeException;'
+        PROTECTED       | 'protected abstract String getMessage() throws Exception, RuntimeException;'
+        PACKAGE_PRIVATE | 'abstract String getMessage() throws Exception, RuntimeException;'
     }
 
     def "Should fail to create private abstract method"() {

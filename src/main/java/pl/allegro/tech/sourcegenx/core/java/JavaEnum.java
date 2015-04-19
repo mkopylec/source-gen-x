@@ -27,24 +27,16 @@ public class JavaEnum extends SourceFile {
     private final List<Field> fields = new ArrayList<>();
     private final List<Method> methods = new ArrayList<>();
 
-    public JavaEnum(String packageName, String enumName, String directory) {
-        this(enumName, packageName, enumName, directory, PUBLIC);
+    public JavaEnum(String directory, String packageName, String enumName) {
+        this(directory, packageName, PUBLIC, enumName);
     }
 
-    public JavaEnum(String packageName, String enumName, String directory, AccessModifier accessModifier) {
-        this(enumName, packageName, enumName, directory, accessModifier);
-    }
-
-    public JavaEnum(String fileName, String packageName, String enumName, String directory) {
-        this(fileName, packageName, enumName, directory, PUBLIC);
-    }
-
-    public JavaEnum(String fileName, String packageName, String enumName, String directory, AccessModifier accessModifier) {
-        super(fileName, directory, JAVA_ENUM);
+    public JavaEnum(String directory, String packageName, AccessModifier accessModifier, String enumName) {
+        super(enumName, directory, JAVA_ENUM);
         failIfBlank(packageName, "Empty Java enum package name");
-        failIfBlank(enumName, "Empty Java enum name");
         failIfNull(accessModifier, "Empty Java enum access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java enum access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
+        failIfBlank(enumName, "Empty Java enum name");
         this.packageName = packageName;
         this.accessModifier = accessModifier;
         this.enumName = enumName;
@@ -119,6 +111,9 @@ public class JavaEnum extends SourceFile {
     public <J extends JavaEnum> J addMethod(Method method) {
         failIfNull(method, "Empty Java enum method");
         failIfInstanceOf(method, "Invalid Java enum method type: " + method.getClass().getSimpleName(), InterfaceMethod.class, AbstractMethod.class, Constructor.class);
+        if (method instanceof Constructor) {
+            failIfNotOneOf(method.getName(), "Invalid Java enum " + enumName + " constructor name: " + method.getName(), enumName);
+        }
         methods.add(method);
         return (J) this;
     }

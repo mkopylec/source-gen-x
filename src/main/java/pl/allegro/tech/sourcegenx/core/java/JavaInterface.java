@@ -25,24 +25,24 @@ public class JavaInterface extends SourceFile {
     private final List<InterfaceConstant> constants = new ArrayList<>();
     private final List<InterfaceMethod> methods = new ArrayList<>();
 
-    public JavaInterface(String packageName, String interfaceName, String directory) {
-        this(interfaceName, packageName, interfaceName, directory, PUBLIC);
+    public JavaInterface(String directory, String packageName, String interfaceName) {
+        this(directory, interfaceName, packageName, PUBLIC, interfaceName);
     }
 
-    public JavaInterface(String packageName, String interfaceName, String directory, AccessModifier accessModifier) {
-        this(interfaceName, packageName, interfaceName, directory, accessModifier);
+    public JavaInterface(String directory, String packageName, AccessModifier accessModifier, String interfaceName) {
+        this(directory, interfaceName, packageName, accessModifier, interfaceName);
     }
 
-    public JavaInterface(String fileName, String packageName, String interfaceName, String directory) {
-        this(fileName, packageName, interfaceName, directory, PUBLIC);
+    public JavaInterface(String directory, String fileName, String packageName, String interfaceName) {
+        this(directory, fileName, packageName, PUBLIC, interfaceName);
     }
 
-    public JavaInterface(String fileName, String packageName, String interfaceName, String directory, AccessModifier accessModifier) {
+    public JavaInterface(String directory, String fileName, String packageName, AccessModifier accessModifier, String interfaceName) {
         super(fileName, directory, JAVA_INTERFACE);
         failIfBlank(packageName, "Empty Java interface package name");
-        failIfBlank(interfaceName, "Empty Java interface name");
         failIfNull(accessModifier, "Empty Java interface access modifier");
         failIfNotOneOf(accessModifier, "Invalid Java interface access modifier: " + accessModifier, PUBLIC, PACKAGE_PRIVATE);
+        failIfBlank(interfaceName, "Empty Java interface name");
         this.packageName = packageName;
         this.accessModifier = accessModifier;
         this.interfaceName = interfaceName;

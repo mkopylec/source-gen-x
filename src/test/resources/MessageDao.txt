@@ -1,0 +1,24 @@
+package pl.allegro.tech;
+
+import java.io.Serializable;
+import java.util.List;
+import pl.allegro.tech.Dao;
+import pl.allegro.tech.DaoException;
+import pl.allegro.tech.Logged;
+import pl.allegro.tech.Message;
+import pl.allegro.tech.NotNull;
+import static pl.allegro.tech.LogLevel.INFO;
+
+@SuppressWarnings("unchecked")
+public interface MessageDao extends Dao<Message>, Serializable {
+
+    @Deprecated
+    String DEFAULT_MESSAGE = new Message();
+
+    @Logged(level = INFO)
+    default Message findById(@NotNull long id) throws RuntimeException {
+        return null;
+    }
+
+    List<Message> findAll() throws DaoException, RuntimeException;
+}

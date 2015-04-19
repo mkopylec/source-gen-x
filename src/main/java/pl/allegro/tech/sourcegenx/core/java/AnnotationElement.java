@@ -49,6 +49,10 @@ public class AnnotationElement extends Method {
         if (defaultValue != null) {
             value += " default " + defaultValue;
         }
-        return removeRedundantSpaces(value + ";");
+        StringBuilder builder = new StringBuilder();
+        for (Annotation annotation : getAnnotations()) {
+            builder.append(annotation).append(" ");
+        }
+        return removeRedundantSpaces(builder.toString() + value + ";");
     }
 }

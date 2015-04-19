@@ -11,7 +11,7 @@ The goal of the project is to create natural, easy to use and self-documented Ja
 Every class that represents a model of source file is a subclass of `SourceFile`.
 To create a physical file use `createSourceFile()` method.
 To create a string representation of file content invoke `toString()`.
-The generated source code almost always needs some kind of reformatting.
+The generated source code often needs some kind of reformatting.
 
 The following examples are **not a complete overview** of available methods.
 They are just a simple demonstration of how to use the Source Gen-X tool.
