@@ -1,6 +1,5 @@
 package pl.allegro.tech.sourcegenx.core.config;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,18 +82,5 @@ public class YamlNode {
             }
         }
         return builder.toString();
-    }
-
-    public static void main(String[] args) throws IOException {
-        YamlNode root = new YamlNode("root")
-                .addChild(new YamlNode("message.default").addValue("Some message"))
-                .addChild(new YamlNode("message.special")
-                                .addChild(new YamlNode("server").addValue("1"))
-                                .addChild(new YamlNode("client").addValue("2"))
-                );
-
-        ConfigYaml yaml = new ConfigYaml().addNode(root);
-
-        yaml.createSourceFile("spec", "application");
     }
 }
