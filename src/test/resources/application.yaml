@@ -1,0 +1,11 @@
+message.text:
+  error:
+    fatal:
+    available:
+      - invalid value
+      - illegal operation
+      - empty value
+  default: I am message
+server:
+  port: 8080
+  host: localhost

@@ -1,7 +1,10 @@
 package pl.allegro.tech.sourcegenx.utils;
 
 import pl.allegro.tech.sourcegenx.exceptions.EmptyValueException;
+import pl.allegro.tech.sourcegenx.exceptions.IllegalOperationException;
 import pl.allegro.tech.sourcegenx.exceptions.InvalidValueException;
+
+import java.util.Collection;
 
 import static org.apache.commons.lang3.ArrayUtils.contains;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -29,6 +32,18 @@ public final class Validator {
     public static void failIfOneOf(Object value, String message, Object... allowedValues) {
         if (contains(allowedValues, value)) {
             throw new InvalidValueException(message);
+        }
+    }
+
+    public static void failIfNotEmpty(Collection<?> collection, String message) {
+        if (!collection.isEmpty()) {
+            throw new IllegalOperationException(message);
+        }
+    }
+
+    public static void failIfEmpty(Collection<?> collection, String message) {
+        if (collection.isEmpty()) {
+            throw new IllegalOperationException(message);
         }
     }
 

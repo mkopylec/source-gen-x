@@ -160,6 +160,30 @@ Output application.properties:
     database.name=test
     database.host=localhost
 
+### Generating a configuration YAML file
+Creating a sample YAML file:
+
+```java
+YamlNode root = new YamlNode("root")
+        .addChild(new YamlNode("message.default").addValue("Some message"))
+        .addChild(new YamlNode("message.special")
+                        .addChild(new YamlNode("server").addValue("1"))
+                        .addChild(new YamlNode("client").addValue("2"))
+        );
+
+ConfigYaml yaml = new ConfigYaml().addNode(root);
+
+yaml.createSourceFile("/demo/src/main/resources", "application");
+```
+
+Output application.yaml:
+
+    root:
+      message.default: Some message
+      message.special:
+        server: 1
+        client: 2
+
 ## More examples
 See test specifications for more samples:
 
@@ -168,6 +192,7 @@ See test specifications for more samples:
 - [Java enum spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaEnumSpec.groovy)
 - [Java annotation spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/java/JavaAnnotationSpec.groovy)
 - [Config properties spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/config/ConfigPropertiesSpec.groovy)
+- [Config YAML spec](https://github.com/mkopylec/source-gen-x/blob/master/src/test/groovy/pl/allegro/tech/sourcegenx/core/config/ConfigYamlSpec.groovy)
 
 ## License
 Source Gen-X is published under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
